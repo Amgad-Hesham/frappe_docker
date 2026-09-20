@@ -94,6 +94,9 @@ services:
       UPSTREAM_REAL_IP_HEADER: ${UPSTREAM_REAL_IP_HEADER:-X-Forwarded-For}
       UPSTREAM_REAL_IP_RECURSIVE: ${UPSTREAM_REAL_IP_RECURSIVE:-off}
     image: ${CUSTOM_IMAGE:-frappe/erpnext}:${CUSTOM_TAG:-$ERPNEXT_VERSION}
+    networks:
+      - default
+      - dokploy-network
     platform: linux/amd64
     pull_policy: ${PULL_POLICY:-always}
     restart: ${RESTART_POLICY:-unless-stopped}
@@ -179,3 +182,7 @@ volumes:
   db-data:
   redis-queue-data:
   sites:
+networks:
+  default: {}
+  dokploy-network:
+    external: true
